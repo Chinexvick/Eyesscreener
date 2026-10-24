@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>EYES-Screener — See Everything. Invest Wisely.</title>
+  <meta name="description" content="EYES-Screener: discover the best opportunities on BNB Chain with real-time data, AI signals and risk analysis." />
+  <meta name="theme-color" content="#F5C518" />
+  <link rel="icon" href="assets/img/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    try { var t = localStorage.getItem('eyes-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <!-- Icon sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-4a2 2 0 0 0 0 4h4a1 1 0 0 0 1-1v-2"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-bars" viewBox="0 0 24 24"><path d="M3 21h18M6 17V10M10 17V5M14 17v-9M18 17V12"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.6 5.6c3 2.5 9.8 2.5 12.8 0M5.6 18.4c3-2.5 9.8-2.5 12.8 0"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-trend-up" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9 3 10.5 7.5 15 9l-4.5 1.5L9 15l-1.5-4.5L3 9l4.5-1.5z"/><path d="M17 13l.9 2.1L20 16l-2.1.9L17 19l-.9-2.1L14 16l2.1-.9z"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 3-5 5-5 8a7 7 0 0 0 7 7z"/></symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 3s7 7 7 12a7 7 0 0 1-14 0c0-5 7-12 7-12z"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 17h6"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7z"/><path d="m3 7 9 5 9-5M12 12v10"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="bnb" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 3l4.9 4.9-2.3 2.3L12 7.6l-2.6 2.6-2.3-2.3zM12 21l-4.9-4.9 2.3-2.3 2.6 2.6 2.6-2.6 2.3 2.3zM3 12l2.3-2.3L7.6 12l-2.3 2.3zM16.4 12l2.3-2.3L21 12l-2.3 2.3zM12 9.7l2.3 2.3-2.3 2.3L9.7 12z"/></symbol>
+  </svg>
+
+  <!-- ===== Header ===== -->
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
+    <a class="brand" href="#" aria-label="EYES-Screener home">
+      <img class="brand-logo" src="assets/img/logo.png" alt="" width="54" height="54" />
+      <span class="brand-text">
+        <span class="brand-name"><span class="g">EYES</span>-SCREENER</span>
+        <span class="brand-tag">See everything. Invest wisely.</span>
+      </span>
+    </a>
+    <label class="global-search">
+      <svg><use href="#i-search"/></svg>
+      <input id="globalSearch" type="search" placeholder="Search token name, symbol or contract address..." autocomplete="off" />
+    </label>
+    <div class="topbar-right">
+      <div class="chain-select">
+        <span class="bnb-dot"><svg><use href="#bnb"/></svg></span>
+        <select id="chainSelect" aria-label="Select chain">
+          <option>BNB Chain</option>
+          <option disabled>Ethereum (soon)</option>
+          <option disabled>Base (soon)</option>
+          <option disabled>Solana (soon)</option>
+        </select>
+        <svg class="chev"><use href="#i-chev-down"/></svg>
+      </div>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme"><svg><use href="#i-sun"/></svg></button>
+      <div class="notif-wrap">
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications" aria-expanded="false"><svg><use href="#i-bell"/></svg><span class="badge">1</span></button>
+        <div class="notif-pop" id="notifPop" hidden>
+          <div class="notif-head">Notifications</div>
+          <div class="notif-item"><span class="dot"></span><div><b>TST</b> crossed +100% in 24h<br /><small>Signal Alerts · 4m ago</small></div></div>
+        </div>
+      </div>
+      <button class="btn-wallet" id="walletBtn"><svg><use href="#i-wallet"/></svg><span>Connect Wallet</span></button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ===== Sidebar ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <img src="assets/img/logo.png" alt="" width="40" height="40" />
+        <span class="brand-name sm"><span class="g">EYES</span>-SCREENER</span>
+        <button class="icon-btn" id="closeMenu" aria-label="Close menu"><svg><use href="#i-x"/></svg></button>
+      </div>
+      <nav class="nav">
+        <a href="#"><svg><use href="#i-home"/></svg>Home</a>
+        <a href="#" class="active"><svg><use href="#i-bars"/></svg>EYES-Screener</a>
+        <a href="#"><svg><use href="#i-brain"/></svg>AI Investigator</a>
+        <a href="#"><svg><use href="#i-shield"/></svg>Risk Radar</a>
+        <a href="#"><svg><use href="#i-bell"/></svg>Signal Alerts</a>
+        <a href="#" data-nav="watchlist"><svg><use href="#i-star"/></svg>Watchlist</a>
+        <a href="#"><svg><use href="#i-cap"/></svg>Crypto Academy</a>
+        <a href="#" class="more"><svg><use href="#i-grid"/></svg>More<svg class="chev"><use href="#i-chev-right"/></svg></a>
+      </nav>
+      <div class="promo">
+        <img src="assets/img/promo-owl.jpg" alt="EYES owl mascot" />
+        <div class="promo-body">
+          <div class="promo-title">EYES</div>
+          <div class="promo-sub">Powered by nature</div>
+          <p>Smarter Research.<br />Better Decisions.</p>
+          <a href="#" class="promo-btn">Explore $EYES Ecosystem <svg><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </div>
+      <div class="sidebar-token">
+        <img src="assets/img/avatar.png" alt="" width="36" height="36" />
+        <div><b>$EYES</b><small>The eye that sees beyond.</small></div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <!-- ===== Main ===== -->
+    <main class="main">
+      <section class="hero">
+        <div class="hero-art"><img src="assets/img/hero-owl.jpg" alt="" /></div>
+        <div class="hero-content">
+          <h1 class="hero-title"><img src="assets/img/hero-mark.png" alt="" /><span><span class="g">EYES</span>-SCREENER</span></h1>
+          <p class="hero-sub">Discover the best opportunities on BNB Chain.</p>
+          <div class="hero-tabs" role="tablist">
+            <button class="tab active" data-tab="gainers" role="tab"><svg><use href="#i-trend-up"/></svg>Top Gainers</button>
+            <button class="tab" data-tab="new" role="tab"><svg><use href="#i-sparkles"/></svg>New Pairs</button>
+            <button class="tab" data-tab="trending" role="tab"><svg><use href="#i-flame"/></svg>Trending</button>
+            <button class="tab" data-tab="liquidity" role="tab"><svg><use href="#i-shield"/></svg>Liquidity</button>
+            <button class="tab" data-tab="ai" role="tab"><svg><use href="#i-bot"/></svg>AI Picks</button>
+          </div>
+          <p class="hero-note">Scan every pair on BNB Chain in real time. Not financial advice.</p>
+        </div>
+        <div class="live-badge"><span class="live-dot"></span><b>Live Data</b><span id="liveClock">Oct 21, 2026 10:24 AM</span></div>
+      </section>
+
+      <section class="card screener">
+        <div class="filters">
+          <label class="table-search">
+            <svg><use href="#i-search"/></svg>
+            <input id="tableSearch" type="search" placeholder="Search token name or address..." autocomplete="off" />
+          </label>
+          <div class="filter-scroll">
+            <label class="filter"><span>Min Liquidity</span>
+              <select id="fLiq"><option value="0">Any</option><option value="1e6">$1M+</option><option value="5e6">$5M+</option><option value="1e7">$10M+</option><option value="25e6">$25M+</option></select></label>
+            <label class="filter"><span>24h Volume</span>
+              <select id="fVol"><option value="0">Any</option><option value="1e6">$1M+</option><option value="1e7">$10M+</option><option value="5e7">$50M+</option></select></label>
+            <label class="filter"><span>Market Cap</span>
+              <select id="fMcap"><option value="0">Any</option><option value="1e7">$10M+</option><option value="1e8">$100M+</option><option value="5e8">$500M+</option></select></label>
+            <label class="filter"><span>Price Change (24h)</span>
+              <select id="fChg"><option value="-1e9">Any</option><option value="0">Positive</option><option value="25">+25%+</option><option value="50">+50%+</option></select></label>
+            <label class="filter"><span>Transactions</span>
+              <select id="fTx"><option value="0">Any</option><option value="1e4">10K+</option><option value="5e4">50K+</option><option value="1e5">100K+</option></select></label>
+            <button class="more-filters" id="resetFilters" title="Reset filters"><svg><use href="#i-sliders"/></svg>More Filters</button>
+          </div>
+        </div>
+        <div class="chips" id="chips">
+          <button class="chip active" data-cat="all">All</button>
+          <button class="chip" data-cat="bsc"><span class="bnb-dot sm"><svg><use href="#bnb"/></svg></span>BSC</button>
+          <button class="chip" data-cat="memes">Memes</button>
+          <button class="chip" data-cat="defi">DeFi</button>
+          <button class="chip" data-cat="ai">AI</button>
+          <button class="chip" data-cat="gaming">Gaming</button>
+          <button class="chip" data-cat="nft">NFT</button>
+          <button class="chip" data-cat="social">Social</button>
+          <button class="chip" data-cat="other">Other</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="tokens">
+            <thead>
+              <tr>
+                <th class="c-rank">#</th>
+                <th class="c-token">Token</th>
+                <th data-sort="price">Price</th>
+                <th data-sort="change">24h %</th>
+                <th data-sort="liq">Liquidity</th>
+                <th data-sort="vol">24h Volume</th>
+                <th data-sort="mcap">Market Cap</th>
+                <th data-sort="txns">Txns (24h)</th>
+                <th class="c-center" data-sort="riskN">Risk</th>
+                <th class="c-center" data-sort="signal">AI Signal</th>
+                <th class="c-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tokenBody"></tbody>
+          </table>
+          <div class="empty" id="emptyState" hidden>No tokens match your filters.</div>
+        </div>
+
+        <div class="pager">
+          <div class="pages" id="pages"></div>
+          <div class="showing" id="showing">Showing 1–10 of 200+ tokens</div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="feature"><span class="f-ic"><svg><use href="#i-db"/></svg></span><div><b>Real-Time Data</b><small>Powered by trusted data providers</small></div></div>
+        <div class="feature"><span class="f-ic"><svg><use href="#i-brain"/></svg></span><div><b>AI-Powered Insights</b><small>Clear explanations, not just numbers</small></div></div>
+        <div class="feature"><span class="f-ic"><svg><use href="#i-shield"/></svg></span><div><b>Risk Analysis</b><small>Spot potential red flags early</small></div></div>
+        <div class="feature"><span class="f-ic"><svg><use href="#i-book"/></svg></span><div><b>Learn &amp; Grow</b><small>Crypto education for everyone</small></div></div>
+      </section>
+    </main>
+
+    <!-- ===== Right rail ===== -->
+    <aside class="rail">
+      <section class="card overview">
+        <header class="card-head">
+          <span class="bnb-dot lg"><svg><use href="#bnb"/></svg></span>
+          <h2>BNB Chain Market Overview</h2>
+        </header>
+        <div class="stats">
+          <div><small>Total Market Cap</small><b id="statMcap">$72.4B</b><span class="up">+6.3%</span></div>
+          <div><small>24h Volume</small><b id="statVol">$6.8B</b><span class="up">+18.7%</span></div>
+          <div><small>Active Pairs</small><b id="statPairs">12,482</b><span class="up">+11.2%</span></div>
+        </div>
+        <div class="chart" id="chart"></div>
+        <div class="seg" id="tfSeg">
+          <button data-tf="1H">1H</button>
+          <button data-tf="24H" class="active">24H</button>
+          <button data-tf="7D">7D</button>
+          <button data-tf="30D">30D</button>
+        </div>
+      </section>
+
+      <section class="card list-card">
+        <header class="card-head sm"><svg class="hd-ic"><use href="#i-cube"/></svg><h2>Top Gainers (24h)</h2></header>
+        <ol class="mini-list" id="gainersList"></ol>
+        <a href="#" class="view-all">View all <svg><use href="#i-arrow-right"/></svg></a>
+      </section>
+
+      <section class="card list-card">
+        <header class="card-head sm"><span class="hd-dot"><svg><use href="#i-target"/></svg></span><h2>Recent New Pairs</h2></header>
+        <ol class="mini-list pairs" id="pairsList"></ol>
+        <a href="#" class="view-all">View all <svg><use href="#i-arrow-right"/></svg></a>
+      </section>
+
+      <div class="rail-brand">
+        <span class="brand-name sm"><span class="g">EYES</span>-SCREENER</span>
+        <small>See. Analyse. Invest wisely.</small>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ===== Mobile bottom nav ===== -->
+  <nav class="bottom-nav">
+    <a href="#"><svg><use href="#i-home"/></svg>Home</a>
+    <a href="#" class="active"><svg><use href="#i-bars"/></svg>Screener</a>
+    <a href="#"><svg><use href="#i-brain"/></svg>AI</a>
+    <a href="#" data-nav="watchlist"><svg><use href="#i-star"/></svg>Watchlist</a>
+    <a href="#" id="bnMore"><svg><use href="#i-grid"/></svg>More</a>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
