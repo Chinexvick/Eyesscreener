@@ -1,0 +1,130 @@
+---
+title: EYES-Screener — See Everything. Invest Wisely.
+key: screener
+desc: EYES-Screener: discover the best opportunities on BNB Chain with real-time data, AI signals and risk analysis.
+rail: true
+scripts: js/app.js
+---
+<main class="main">
+      <section class="hero">
+        <div class="hero-art"><img src="assets/img/hero-owl.jpg" alt="" /></div>
+        <div class="hero-content">
+          <h1 class="hero-title"><img src="assets/img/hero-mark.png" alt="" /><span><span class="g">EYES</span>-SCREENER</span></h1>
+          <p class="hero-sub">Discover the best opportunities on BNB Chain.</p>
+          <div class="hero-tabs" role="tablist">
+            <button class="tab active" data-tab="gainers" role="tab"><svg><use href="#i-trend-up"/></svg>Top Gainers</button>
+            <button class="tab" data-tab="new" role="tab"><svg><use href="#i-sparkles"/></svg>New Pairs</button>
+            <button class="tab" data-tab="trending" role="tab"><svg><use href="#i-flame"/></svg>Trending</button>
+            <button class="tab" data-tab="liquidity" role="tab"><svg><use href="#i-shield"/></svg>Liquidity</button>
+            <button class="tab" data-tab="ai" role="tab"><svg><use href="#i-bot"/></svg>AI Picks</button>
+          </div>
+          <p class="hero-note">Scan every pair on BNB Chain in real time. Not financial advice.</p>
+        </div>
+        <div class="live-badge"><span class="live-dot"></span><b>Live Data</b><span id="liveClock">Oct 21, 2026 10:24 AM</span></div>
+      </section>
+
+      <section class="card screener">
+        <div class="filters">
+          <label class="table-search">
+            <svg><use href="#i-search"/></svg>
+            <input id="tableSearch" type="search" placeholder="Search token name or address..." autocomplete="off" />
+          </label>
+          <div class="filter-scroll">
+            <label class="filter"><span>Min Liquidity</span>
+              <select id="fLiq"><option value="0">Any</option><option value="1e6">$1M+</option><option value="5e6">$5M+</option><option value="1e7">$10M+</option><option value="25e6">$25M+</option></select></label>
+            <label class="filter"><span>24h Volume</span>
+              <select id="fVol"><option value="0">Any</option><option value="1e6">$1M+</option><option value="1e7">$10M+</option><option value="5e7">$50M+</option></select></label>
+            <label class="filter"><span>Market Cap</span>
+              <select id="fMcap"><option value="0">Any</option><option value="1e7">$10M+</option><option value="1e8">$100M+</option><option value="5e8">$500M+</option></select></label>
+            <label class="filter"><span>Price Change (24h)</span>
+              <select id="fChg"><option value="-1e9">Any</option><option value="0">Positive</option><option value="25">+25%+</option><option value="50">+50%+</option></select></label>
+            <label class="filter"><span>Transactions</span>
+              <select id="fTx"><option value="0">Any</option><option value="1e4">10K+</option><option value="5e4">50K+</option><option value="1e5">100K+</option></select></label>
+            <button class="more-filters" id="resetFilters" title="Reset filters"><svg><use href="#i-sliders"/></svg>More Filters</button>
+          </div>
+        </div>
+        <div class="chips" id="chips">
+          <button class="chip active" data-cat="all">All</button>
+          <button class="chip" data-cat="bsc"><span class="bnb-dot sm"><svg><use href="#bnb"/></svg></span>BSC</button>
+          <button class="chip" data-cat="memes">Memes</button>
+          <button class="chip" data-cat="defi">DeFi</button>
+          <button class="chip" data-cat="ai">AI</button>
+          <button class="chip" data-cat="gaming">Gaming</button>
+          <button class="chip" data-cat="nft">NFT</button>
+          <button class="chip" data-cat="social">Social</button>
+          <button class="chip" data-cat="other">Other</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="tokens">
+            <thead>
+              <tr>
+                <th class="c-rank">#</th>
+                <th class="c-token">Token</th>
+                <th data-sort="price">Price</th>
+                <th data-sort="change">24h %</th>
+                <th data-sort="liq">Liquidity</th>
+                <th data-sort="vol">24h Volume</th>
+                <th data-sort="mcap">Market Cap</th>
+                <th data-sort="txns">Txns (24h)</th>
+                <th class="c-center" data-sort="riskN">Risk</th>
+                <th class="c-center" data-sort="signal">AI Signal</th>
+                <th class="c-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tokenBody"></tbody>
+          </table>
+          <div class="empty" id="emptyState" hidden>No tokens match your filters.</div>
+        </div>
+
+        <div class="pager">
+          <div class="pages" id="pages"></div>
+          <div class="showing" id="showing">Showing 1–10 of 200+ tokens</div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="feature"><span class="f-ic"><svg><use href="#i-db"/></svg></span><div><b>Real-Time Data</b><small>Powered by trusted data providers</small></div></div>
+        <div class="feature"><span class="f-ic"><svg><use href="#i-brain"/></svg></span><div><b>AI-Powered Insights</b><small>Clear explanations, not just numbers</small></div></div>
+        <div class="feature"><span class="f-ic"><svg><use href="#i-shield"/></svg></span><div><b>Risk Analysis</b><small>Spot potential red flags early</small></div></div>
+        <div class="feature"><span class="f-ic"><svg><use href="#i-book"/></svg></span><div><b>Learn &amp; Grow</b><small>Crypto education for everyone</small></div></div>
+      </section>
+    </main>
+
+<aside class="rail">
+      <section class="card overview">
+        <header class="card-head">
+          <span class="bnb-dot lg"><svg><use href="#bnb"/></svg></span>
+          <h2>BNB Chain Market Overview</h2>
+        </header>
+        <div class="stats">
+          <div><small>Total Market Cap</small><b id="statMcap">$72.4B</b><span class="up">+6.3%</span></div>
+          <div><small>24h Volume</small><b id="statVol">$6.8B</b><span class="up">+18.7%</span></div>
+          <div><small>Active Pairs</small><b id="statPairs">12,482</b><span class="up">+11.2%</span></div>
+        </div>
+        <div class="chart" id="chart"></div>
+        <div class="seg" id="tfSeg">
+          <button data-tf="1H">1H</button>
+          <button data-tf="24H" class="active">24H</button>
+          <button data-tf="7D">7D</button>
+          <button data-tf="30D">30D</button>
+        </div>
+      </section>
+
+      <section class="card list-card">
+        <header class="card-head sm"><svg class="hd-ic"><use href="#i-cube"/></svg><h2>Top Gainers (24h)</h2></header>
+        <ol class="mini-list" id="gainersList"></ol>
+        <a href="#" class="view-all">View all <svg><use href="#i-arrow-right"/></svg></a>
+      </section>
+
+      <section class="card list-card">
+        <header class="card-head sm"><span class="hd-dot"><svg><use href="#i-target"/></svg></span><h2>Recent New Pairs</h2></header>
+        <ol class="mini-list pairs" id="pairsList"></ol>
+        <a href="#" class="view-all">View all <svg><use href="#i-arrow-right"/></svg></a>
+      </section>
+
+      <div class="rail-brand">
+        <span class="brand-name sm"><span class="g">EYES</span>-SCREENER</span>
+        <small>See. Analyse. Invest wisely.</small>
+      </div>
+    </aside>

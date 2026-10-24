@@ -1,0 +1,24 @@
+---
+title: Crypto Academy — EYES-Screener
+key: academy
+desc: Short, practical lessons on crypto basics, reading a token screener, spotting rug pulls and using DeFi on BNB Chain.
+scripts: js/academy.js
+---
+<main class="page">
+      <div class="page-head"><div><h1>Crypto Academy</h1><p>Short lessons that make you a safer, sharper researcher. Your progress is saved in this browser.</p></div></div>
+
+      <section class="card progress-card">
+        <div class="gauge sm c-good" id="acGauge" style="--p:0"><div><b id="acPct">0%</b></div></div>
+        <div style="flex:1;min-width:200px"><b id="acText" style="font-size:15px">0 of 0 lessons complete</b><div class="meter c-good" id="acBar" style="--p:0;margin-top:10px"><i></i></div></div>
+      </section>
+
+      <section class="grid g2" id="acCourses"></section>
+
+      <section class="card pad" id="acPanel" hidden></section>
+
+      <section class="card pad">
+        <div class="row between" style="margin-bottom:6px"><h2 class="card-title" style="margin:0"><svg><use href="#i-book"/></svg>Glossary</h2>
+          <input class="input" id="acSearch" placeholder="Search terms…" style="max-width:240px" /></div>
+        <dl class="glossary" id="acGloss"></dl>
+      </section>
+    </main>

@@ -1,0 +1,22 @@
+---
+title: AI Investigator — EYES-Screener
+key: ai
+desc: Paste a token name or contract address and get a plain-English AI safety report: honeypot, liquidity lock, taxes, holders and more.
+scripts: js/ai.js
+---
+<main class="page">
+      <div class="page-head"><div><h1>AI Investigator</h1><p>Paste a token name, symbol or BNB Chain contract address. The investigator checks the contract, liquidity and holders, then explains what it found in plain English.</p></div></div>
+
+      <section class="card pad">
+        <form class="ai-box" id="aiForm" autocomplete="off">
+          <label class="field" style="flex:1"><span class="sr" hidden>Token</span>
+            <input class="input" id="aiInput" list="aiList" placeholder="Token name, symbol or 0x… contract address" /></label>
+          <datalist id="aiList"></datalist>
+          <button class="btn" type="submit"><svg><use href="#i-brain"/></svg>Investigate</button>
+        </form>
+        <div class="suggest" id="aiSuggest"><small>Try:</small></div>
+      </section>
+
+      <section id="aiOut" aria-live="polite"></section>
+      <p class="disclaimer">Reports are generated from on-chain style heuristics and demo data. They are not a guarantee of safety and not financial advice.</p>
+    </main>

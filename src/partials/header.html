@@ -1,0 +1,37 @@
+<!-- ===== Header ===== -->
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
+    <a class="brand" href="/" aria-label="EYES-Screener home">
+      <img class="brand-logo" src="assets/img/logo.png" alt="" width="54" height="54" />
+      <span class="brand-text">
+        <span class="brand-name"><span class="g">EYES</span>-SCREENER</span>
+        <span class="brand-tag">See everything. Invest wisely.</span>
+      </span>
+    </a>
+    <label class="global-search">
+      <svg><use href="#i-search"/></svg>
+      <input id="globalSearch" type="search" placeholder="Search token name, symbol or contract address..." autocomplete="off" />
+    </label>
+    <div class="topbar-right">
+      <div class="chain-select">
+        <span class="bnb-dot"><svg><use href="#bnb"/></svg></span>
+        <select id="chainSelect" aria-label="Select chain">
+          <option>BNB Chain</option>
+          <option disabled>Ethereum (soon)</option>
+          <option disabled>Base (soon)</option>
+          <option disabled>Solana (soon)</option>
+        </select>
+        <svg class="chev"><use href="#i-chev-down"/></svg>
+      </div>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme"><svg><use href="#i-sun"/></svg></button>
+      <div class="notif-wrap">
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications" aria-expanded="false"><svg><use href="#i-bell"/></svg><span class="badge">1</span></button>
+        <div class="notif-pop" id="notifPop" hidden>
+          <div class="notif-head">Notifications</div>
+          <div class="notif-item"><span class="dot"></span><div><b>TST</b> crossed +100% in 24h<br /><small>Signal Alerts · 4m ago</small></div></div>
+        </div>
+      </div>
+      <button class="btn-wallet" id="walletBtn"><svg><use href="#i-wallet"/></svg><span>Connect Wallet</span></button>
+    </div>
+  </header>
+

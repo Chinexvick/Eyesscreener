@@ -1,0 +1,29 @@
+---
+title: Watchlist — EYES-Screener
+key: watchlist
+desc: Your saved BNB Chain tokens with live price, liquidity, risk and AI signal.
+scripts: js/watchlist.js
+---
+<main class="page">
+      <div class="page-head">
+        <div><h1>Watchlist</h1><p>Tokens you have starred. Saved in this browser.</p></div>
+        <form class="row" id="wForm" autocomplete="off" style="flex-wrap:nowrap">
+          <input class="input" id="wAdd" list="wList" placeholder="Add token by symbol…" style="width:220px" />
+          <datalist id="wList"></datalist>
+          <button class="btn" type="submit"><svg><use href="#i-plus"/></svg>Add</button>
+        </form>
+      </div>
+      <section class="grid g3 stats3" id="wStats"></section>
+      <section class="card" id="wCard">
+        <div class="table-wrap" style="padding:6px 6px 8px">
+          <table class="wl-table">
+            <thead><tr><th>Token</th><th>Price</th><th>24h %</th><th>Liquidity</th><th>24h Volume</th><th class="c-center">Risk</th><th class="c-center">AI Signal</th><th class="c-center">Actions</th></tr></thead>
+            <tbody id="wBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="wEmpty" hidden>
+          <div class="big"><svg><use href="#i-star"/></svg></div><h3>Your watchlist is empty</h3>
+          <p>Star tokens in the screener, or add one above, to track them here.</p><a class="btn" href="/">Browse the screener</a>
+        </div>
+      </section>
+    </main>

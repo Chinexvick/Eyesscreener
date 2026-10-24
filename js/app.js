@@ -1,30 +1,11 @@
+/* Screener page: table, filters, tabs, market overview rail. Shared chrome lives in common.js. */
 (function () {
   'use strict';
 
-  var D = window.EYES_DATA;
+  var E = window.EYES, D = E.data, fmt = E.fmt, $ = E.$, $$ = E.$$;
   var PAGE_SIZE = 10;
-  var $ = function (s, r) { return (r || document).querySelector(s); };
-  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  // ---------- storage (best effort) ----------
-  function load(key, fallback) {
-    try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch (e) { return fallback; }
-  }
-  function save(key, val) {
-    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
-  }
-
-  var state = {
-    tab: 'gainers',
-    cat: 'all',
-    query: '',
-    sortKey: null,
-    sortDir: -1,
-    page: 1,
-    watchOnly: false,
-    watch: load('eyes-watchlist', ['BABYDOGE']),
-    tf: '24H'
-  };
+  var state = { tab: 'gainers', cat: 'all', query: '', sortKey: null, sortDir: -1, page: 1, tf: '24H' };
 
   var TAB_SORT = {
     gainers: ['change', -1],
@@ -33,42 +14,6 @@
     liquidity: ['liq', -1],
     ai: ['signal', -1]
   };
-  var RISK_N = { Low: 1, Medium: 2, High: 3 };
-  D.tokens.forEach(function (t) { t.riskN = RISK_N[t.risk]; });
-
-  // ---------- formatting ----------
-  function fmtPrice(p) {
-    if (p >= 1000) return '$' + p.toLocaleString('en-US', { maximumFractionDigits: 0 });
-    if (p >= 1) return '$' + p.toFixed(2);
-    var dec = Math.ceil(-Math.log10(p)) + 2;
-    return '$' + p.toFixed(Math.min(dec, 12)).replace(/(\.\d*?[1-9])0+$/, '$1');
-  }
-  function fmtMoney(n) {
-    if (n >= 1e9) return '$' + (n / 1e9).toFixed(1) + 'B';
-    if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
-    if (n >= 1e3) return '$' + (n / 1e3).toFixed(1) + 'K';
-    return '$' + n.toFixed(0);
-  }
-  function fmtCount(n) {
-    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
-    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
-    return String(Math.round(n));
-  }
-  function fmtPct(n) { return (n >= 0 ? '+' : '') + n.toFixed(2) + '%'; }
-  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-
-  function signalColor(v) {
-    // 45 -> amber, 85 -> green
-    var t = Math.max(0, Math.min(1, (v - 45) / 40));
-    var hue = 45 + t * 97;
-    return 'hsl(' + hue.toFixed(0) + ' 78% 45%)';
-  }
-
-  function avatar(t, cls) {
-    if (t.img) return '<img class="' + cls + '" src="' + t.img + '" alt="" loading="lazy" />';
-    var initials = t.symbol.slice(0, 2);
-    return '<span class="' + cls + ' letter" style="--tc:' + t.color + '">' + esc(initials) + '</span>';
-  }
 
   // ---------- filtering / sorting ----------
   function num(id) { return parseFloat($(id).value); }
@@ -78,7 +23,6 @@
     var minLiq = num('#fLiq'), minVol = num('#fVol'), minMcap = num('#fMcap'), minChg = num('#fChg'), minTx = num('#fTx');
     var list = D.tokens.filter(function (t) {
       if (state.cat !== 'all' && t.cats.indexOf(state.cat) < 0) return false;
-      if (state.watchOnly && state.watch.indexOf(t.id) < 0) return false;
       if (t.liq < minLiq || t.vol < minVol || t.mcap < minMcap || t.change < minChg || t.txns < minTx) return false;
       if (q && t.name.toLowerCase().indexOf(q) < 0 && t.symbol.toLowerCase().indexOf(q) < 0 && t.address.indexOf(q) < 0) return false;
       return true;
@@ -90,29 +34,29 @@
 
   // ---------- table ----------
   function rowHtml(t, rank) {
-    var watched = state.watch.indexOf(t.id) >= 0;
+    var watched = E.watch.has(t.id);
     var chgCls = t.change >= 0 ? 'up' : 'down';
     return '<tr data-id="' + t.id + '">' +
       '<td class="c-rank">' + rank + '</td>' +
-      '<td class="c-token"><div class="tok">' + avatar(t, 'tok-ic') +
-        '<div class="tok-txt"><b>' + esc(t.name) + '</b><small>' + esc(t.symbol) + '</small></div></div></td>' +
-      '<td class="c-price" data-label="Price">' + fmtPrice(t.price) + '</td>' +
-      '<td class="c-chg ' + chgCls + '" data-label="24h %">' + fmtPct(t.change) + '</td>' +
-      '<td class="c-liq" data-label="Liquidity">' + fmtMoney(t.liq) + '</td>' +
-      '<td class="c-vol" data-label="24h Vol">' + fmtMoney(t.vol) + '</td>' +
-      '<td class="c-mcap" data-label="MCap">' + fmtMoney(t.mcap) + '</td>' +
-      '<td class="c-tx" data-label="Txns">' + fmtCount(t.txns) + '</td>' +
+      '<td class="c-token"><a class="tok" href="/token?s=' + encodeURIComponent(t.symbol) + '">' + E.avatar(t, 'tok-ic') +
+        '<div class="tok-txt"><b>' + fmt.esc(t.name) + '</b><small>' + fmt.esc(t.symbol) + '</small></div></a></td>' +
+      '<td class="c-price" data-label="Price">' + fmt.price(t.price) + '</td>' +
+      '<td class="c-chg ' + chgCls + '" data-label="24h %">' + fmt.pct(t.change) + '</td>' +
+      '<td class="c-liq" data-label="Liquidity">' + fmt.money(t.liq) + '</td>' +
+      '<td class="c-vol" data-label="24h Volume">' + fmt.money(t.vol) + '</td>' +
+      '<td class="c-mcap" data-label="Market Cap">' + fmt.money(t.mcap) + '</td>' +
+      '<td class="c-tx" data-label="Txns">' + fmt.count(t.txns) + '</td>' +
       '<td class="m-stats">' +
-        '<div><small>Liquidity</small><b>' + fmtMoney(t.liq) + '</b></div>' +
-        '<div><small>24h Vol</small><b class="m-vol">' + fmtMoney(t.vol) + '</b></div>' +
-        '<div><small>MCap</small><b>' + fmtMoney(t.mcap) + '</b></div>' +
-        '<div><small>Txns</small><b class="m-tx">' + fmtCount(t.txns) + '</b></div>' +
+        '<div><small>Liquidity</small><b>' + fmt.money(t.liq) + '</b></div>' +
+        '<div><small>24h Vol</small><b class="m-vol">' + fmt.money(t.vol) + '</b></div>' +
+        '<div><small>MCap</small><b>' + fmt.money(t.mcap) + '</b></div>' +
+        '<div><small>Txns</small><b class="m-tx">' + fmt.count(t.txns) + '</b></div>' +
       '</td>' +
       '<td class="c-risk c-center"><span class="pill ' + t.risk.toLowerCase() + '">' + t.risk + '</span></td>' +
-      '<td class="c-sig c-center"><span class="ring" style="--p:' + t.signal + ';--c:' + signalColor(t.signal) + '"><span>' + t.signal + '</span></span></td>' +
+      '<td class="c-sig c-center">' + E.ring(t.signal) + '</td>' +
       '<td class="c-act c-center"><div class="acts">' +
         '<button class="act star' + (watched ? ' on' : '') + '" data-act="watch" aria-label="Add to watchlist" aria-pressed="' + watched + '"><svg><use href="#i-star"/></svg></button>' +
-        '<button class="act" data-act="view" aria-label="Quick view"><svg><use href="#i-eye"/></svg></button>' +
+        '<a class="act" href="/token?s=' + encodeURIComponent(t.symbol) + '" aria-label="Open details"><svg><use href="#i-eye"/></svg></a>' +
         '<button class="act" data-act="chart" aria-label="Open chart"><svg><use href="#i-chart"/></svg></button>' +
       '</div></td>' +
     '</tr>';
@@ -152,10 +96,10 @@
   // ---------- right rail ----------
   function renderRail() {
     $('#gainersList').innerHTML = D.gainers.map(function (g, i) {
-      return '<li><span class="n">' + (i + 1) + '</span><img src="' + g.img + '" alt="" /><b>' + esc(g.name) + '</b><span class="up">' + fmtPct(g.change) + '</span></li>';
+      return '<li><span class="n">' + (i + 1) + '</span><img src="/' + g.img + '" alt="" /><b>' + fmt.esc(g.name) + '</b><span class="up">' + fmt.pct(g.change) + '</span></li>';
     }).join('');
     $('#pairsList').innerHTML = D.pairs.map(function (p, i) {
-      return '<li><span class="n">' + (i + 1) + '</span><img src="' + p.img + '" alt="" /><b>' + esc(p.base) + '<i> / ' + esc(p.quote) + '</i></b><span class="ago">' + p.mins + 'm ago</span></li>';
+      return '<li><span class="n">' + (i + 1) + '</span><img src="/' + p.img + '" alt="" /><b>' + fmt.esc(p.base) + '<i> / ' + fmt.esc(p.quote) + '</i></b><span class="ago">' + p.mins + 'm ago</span></li>';
     }).join('');
   }
 
@@ -194,24 +138,24 @@
 
   // ---------- live updates ----------
   function tick() {
-    var rows = $$('#tokenBody tr');
-    rows.forEach(function (tr) {
+    if (E.store.get('eyes-settings', {}).live === false) return;
+    $$('#tokenBody tr').forEach(function (tr) {
       if (Math.random() > 0.35) return;
-      var t = D.tokens.find(function (x) { return x.id === tr.dataset.id; });
+      var t = D.tokens.filter(function (x) { return x.id === tr.dataset.id; })[0];
       if (!t) return;
       var drift = (Math.random() - 0.48) * 0.012;
       t.price *= 1 + drift;
       t.change = +(t.change + drift * 100).toFixed(2);
       t.vol *= 1 + Math.abs(drift) * 0.5;
       t.txns += Math.round(Math.random() * 40);
-      $('.c-price', tr).textContent = fmtPrice(t.price);
+      $('.c-price', tr).textContent = fmt.price(t.price);
       var chg = $('.c-chg', tr);
-      chg.textContent = fmtPct(t.change);
+      chg.textContent = fmt.pct(t.change);
       chg.className = 'c-chg ' + (t.change >= 0 ? 'up' : 'down');
-      $('.c-vol', tr).textContent = fmtMoney(t.vol);
-      $('.c-tx', tr).textContent = fmtCount(t.txns);
-      $('.m-vol', tr).textContent = fmtMoney(t.vol);
-      $('.m-tx', tr).textContent = fmtCount(t.txns);
+      $('.c-vol', tr).textContent = fmt.money(t.vol);
+      $('.c-tx', tr).textContent = fmt.count(t.txns);
+      $('.m-vol', tr).textContent = fmt.money(t.vol);
+      $('.m-tx', tr).textContent = fmt.count(t.txns);
       tr.classList.remove('flash-up', 'flash-down');
       void tr.offsetWidth;
       tr.classList.add(drift >= 0 ? 'flash-up' : 'flash-down');
@@ -220,30 +164,8 @@
 
   function updateClock() {
     var d = new Date();
-    var date = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    var time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-    $('#liveClock').textContent = date + ' ' + time;
-  }
-
-  // ---------- UI helpers ----------
-  var toastTimer;
-  function toast(msg) {
-    var el = $('#toast');
-    el.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2600);
-  }
-
-  function setNav(open) {
-    document.body.classList.toggle('nav-open', open);
-  }
-
-  function applyTheme(theme) {
-    document.documentElement.dataset.theme = theme;
-    $('#themeBtn use').setAttribute('href', theme === 'dark' ? '#i-moon' : '#i-sun');
-    try { localStorage.setItem('eyes-theme', theme); } catch (e) {}
-    renderChart();
+    $('#liveClock').textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' ' +
+      d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   }
 
   // ---------- events ----------
@@ -267,7 +189,8 @@
       render();
     });
 
-    ['#fLiq', '#fVol', '#fMcap', '#fChg', '#fTx'].forEach(function (id) {
+    var filters = ['#fLiq', '#fVol', '#fMcap', '#fChg', '#fTx'];
+    filters.forEach(function (id) {
       $(id).addEventListener('change', function () {
         $(id).closest('.filter').classList.toggle('set', $(id).selectedIndex > 0);
         state.page = 1;
@@ -275,12 +198,11 @@
       });
     });
     $('#resetFilters').addEventListener('click', function () {
-      ['#fLiq', '#fVol', '#fMcap', '#fChg', '#fTx'].forEach(function (id) { $(id).selectedIndex = 0; $(id).closest('.filter').classList.remove('set'); });
+      filters.forEach(function (id) { $(id).selectedIndex = 0; $(id).closest('.filter').classList.remove('set'); });
       state.query = ''; $('#tableSearch').value = ''; $('#globalSearch').value = '';
-      state.watchOnly = false; $$('[data-nav="watchlist"]').forEach(function (a) { a.classList.remove('on'); });
       state.page = 1;
       render();
-      toast('Filters reset');
+      E.toast('Filters reset');
     });
 
     function onSearch(e) {
@@ -310,40 +232,22 @@
       if (!b || b.disabled) return;
       state.page = +b.dataset.page;
       render();
-      var top = $('.screener').getBoundingClientRect().top;
-      if (top < 0) $('.screener').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if ($('.screener').getBoundingClientRect().top < 0) $('.screener').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     $('#tokenBody').addEventListener('click', function (e) {
-      var b = e.target.closest('.act');
+      var b = e.target.closest('button.act');
       if (!b) return;
       var id = b.closest('tr').dataset.id;
-      var t = D.tokens.find(function (x) { return x.id === id; });
+      var t = D.tokens.filter(function (x) { return x.id === id; })[0];
       if (b.dataset.act === 'watch') {
-        var i = state.watch.indexOf(id);
-        if (i >= 0) state.watch.splice(i, 1); else state.watch.push(id);
-        save('eyes-watchlist', state.watch);
-        b.classList.toggle('on', i < 0);
-        b.setAttribute('aria-pressed', i < 0);
-        toast(i < 0 ? t.name + ' added to Watchlist' : t.name + ' removed from Watchlist');
-        if (state.watchOnly) render();
-      } else if (b.dataset.act === 'view') {
-        toast(t.name + ' · ' + fmtPrice(t.price) + ' · AI signal ' + t.signal + '/100 · ' + t.risk + ' risk');
+        var on = E.watch.toggle(id);
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on);
+        E.toast(on ? t.name + ' added to Watchlist' : t.name + ' removed from Watchlist');
       } else {
         window.open('https://dexscreener.com/search?q=' + encodeURIComponent(t.symbol), '_blank', 'noopener');
       }
-    });
-
-    $$('[data-nav="watchlist"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        e.preventDefault();
-        state.watchOnly = !state.watchOnly;
-        $$('[data-nav="watchlist"]').forEach(function (x) { x.classList.toggle('on', state.watchOnly); });
-        state.page = 1;
-        render();
-        setNav(false);
-        toast(state.watchOnly ? 'Showing your Watchlist (' + state.watch.length + ')' : 'Showing all tokens');
-      });
     });
 
     $('#tfSeg').addEventListener('click', function (e) {
@@ -354,48 +258,23 @@
       renderChart();
     });
 
-    $('#menuBtn').addEventListener('click', function () { setNav(true); });
-    $('#bnMore').addEventListener('click', function (e) { e.preventDefault(); setNav(true); });
-    $('#closeMenu').addEventListener('click', function () { setNav(false); });
-    $('#scrim').addEventListener('click', function () { setNav(false); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setNav(false); $('#notifPop').hidden = true; } });
-
-    $('#themeBtn').addEventListener('click', function () {
-      applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
-    });
-
-    $('#notifBtn').addEventListener('click', function (e) {
-      e.stopPropagation();
-      var pop = $('#notifPop');
-      pop.hidden = !pop.hidden;
-      $('#notifBtn').setAttribute('aria-expanded', !pop.hidden);
-      $('#notifBtn .badge').hidden = true;
-    });
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.notif-wrap')) $('#notifPop').hidden = true;
-    });
-
-    $('#walletBtn').addEventListener('click', function () {
-      var btn = $('#walletBtn');
-      if (!window.ethereum) { toast('No wallet found. Install MetaMask or Trust Wallet to connect.'); return; }
-      window.ethereum.request({ method: 'eth_requestAccounts' }).then(function (accs) {
-        var a = accs && accs[0];
-        if (!a) return;
-        $('span', btn).textContent = a.slice(0, 6) + '…' + a.slice(-4);
-        btn.classList.add('connected');
-        toast('Wallet connected');
-      }).catch(function () { toast('Wallet connection cancelled'); });
-    });
-
     var rz;
     window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(renderChart, 120); });
+    document.addEventListener('eyes:theme', renderChart);
   }
 
   // ---------- init ----------
+  var initial = new URLSearchParams(location.search).get('q');
+  if (initial) { state.query = initial; $('#tableSearch').value = initial; $('#globalSearch').value = initial; }
+  var tabParam = new URLSearchParams(location.search).get('tab');
+  if (tabParam && TAB_SORT[tabParam]) {
+    state.tab = tabParam;
+    $$('.tab').forEach(function (x) { x.classList.toggle('active', x.dataset.tab === tabParam); });
+  }
   bind();
   render();
   renderRail();
-  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  renderChart();
   updateClock();
   setInterval(updateClock, 15000);
   setInterval(tick, 3500);

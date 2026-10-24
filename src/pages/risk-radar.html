@@ -1,0 +1,43 @@
+---
+title: Risk Radar — EYES-Screener
+key: risk
+desc: Scan BNB Chain tokens for honeypots, unlocked liquidity, high taxes, mint functions and whale-heavy supply.
+scripts: js/risk.js
+---
+<main class="page">
+      <div class="page-head"><div><h1>Risk Radar</h1><p>Every tracked token, scored for safety. The further out a dot sits, the riskier the token. Filter by the red flags you care about.</p></div></div>
+
+      <section class="radar-top">
+        <div class="card pad">
+          <h2 class="card-title"><svg><use href="#i-radar"/></svg>Live scan</h2>
+          <div class="radar" id="radar" aria-label="Risk radar"></div>
+          <div class="legend"><span><i class="c-good"></i>Low</span><span><i class="c-warn"></i>Medium</span><span><i class="c-bad"></i>High</span></div>
+        </div>
+        <div class="grid" style="gap:14px;align-content:start">
+          <div class="grid g3 stats3" style="gap:14px">
+            <div class="card stat"><small>Low risk</small><b class="t-good" id="rLow">—</b><span class="delta muted">tokens</span></div>
+            <div class="card stat"><small>Medium risk</small><b class="t-warn" id="rMed">—</b><span class="delta muted">tokens</span></div>
+            <div class="card stat"><small>High risk</small><b class="t-bad" id="rHigh">—</b><span class="delta muted">tokens</span></div>
+          </div>
+          <div class="card pad">
+            <h2 class="card-title"><svg><use href="#i-sliders"/></svg>Filters</h2>
+            <div class="scroll-x" id="rLevel"><div class="seg-inline">
+              <button class="active" data-l="all">All</button><button data-l="High">High</button><button data-l="Medium">Medium</button><button data-l="Low">Low</button></div></div>
+            <div class="chips" style="padding:14px 0 0;flex-wrap:wrap" id="rFlags">
+              <button class="chip" data-f="honeypot">Honeypot</button>
+              <button class="chip" data-f="lp">Unlocked liquidity</button>
+              <button class="chip" data-f="tax">High tax</button>
+              <button class="chip" data-f="mint">Mintable</button>
+              <button class="chip" data-f="holders">Whale heavy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="padding-bottom:6px">
+        <h2 class="card-title" style="padding:18px 18px 0"><svg><use href="#i-shield"/></svg>Flagged tokens<span class="sp" id="rCount" style="color:var(--muted)"></span></h2>
+        <div class="rr-list" id="rList"></div>
+        <div class="row" style="justify-content:center;padding:12px"><button class="btn ghost sm" id="rMore">Show more</button></div>
+      </section>
+      <p class="disclaimer">Scores come from demo heuristics and are not a guarantee. Always verify contracts yourself.</p>
+    </main>

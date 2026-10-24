@@ -1,0 +1,21 @@
+---
+title: Settings — EYES-Screener
+key: more
+desc: Choose your theme, control live updates and manage the data EYES-Screener saves in your browser.
+scripts: js/settings.js
+---
+<main class="page">
+      <div class="page-head"><div><h1>Settings</h1><p>Everything is stored in this browser only.</p></div></div>
+      <section class="card pad">
+        <div class="setting"><div class="txt">Theme<small>Light, dark or follow your device.</small></div>
+          <div class="seg-inline" id="sTheme"><button data-t="light">Light</button><button data-t="dark">Dark</button><button data-t="system">System</button></div></div>
+        <div class="setting"><div class="txt">Live price updates<small>Animate prices in the screener every few seconds.</small></div>
+          <button class="switch" role="switch" id="sLive" aria-checked="true" aria-label="Live updates"></button></div>
+      </section>
+      <section class="card pad">
+        <h2 class="card-title">Your data</h2>
+        <div class="setting"><div class="txt">Watchlist<small id="sWatch"></small></div><button class="btn danger sm" data-clear="eyes-watchlist">Clear</button></div>
+        <div class="setting"><div class="txt">Alerts<small id="sAlerts"></small></div><button class="btn danger sm" data-clear="eyes-alerts">Clear</button></div>
+        <div class="setting"><div class="txt">Academy progress<small id="sAcad"></small></div><button class="btn danger sm" data-clear="eyes-academy">Clear</button></div>
+      </section>
+    </main>

@@ -1,0 +1,49 @@
+---
+title: Home — EYES-Screener
+key: home
+desc: Your BNB Chain command centre: market pulse, top movers, new pairs and every EYES tool in one place.
+scripts: js/home.js
+---
+<main class="page">
+      <section class="home-hero">
+        <div class="art"><img src="assets/img/hero-owl.jpg" alt="" /></div>
+        <div class="body">
+          <span class="eyebrow"><span class="live-dot"></span>Live on BNB Chain</span>
+          <h1>See everything.<br /><em>Invest wisely.</em></h1>
+          <p>Scan every pair in real time, let AI explain the risks, and get alerted before the crowd. Research that keeps up with BNB Chain.</p>
+          <div class="row">
+            <a class="btn" href="/">Open Screener <svg><use href="#i-arrow-right"/></svg></a>
+            <a class="btn ghost" href="/ai-investigator">Investigate a token</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid g4">
+        <div class="card stat"><span class="ic"><svg><use href="#i-chart"/></svg></span><small>Total market cap</small><b>$72.4B</b><span class="delta up">+6.3% (24h)</span></div>
+        <div class="card stat"><span class="ic"><svg><use href="#i-bars"/></svg></span><small>24h volume</small><b>$6.8B</b><span class="delta up">+18.7%</span></div>
+        <div class="card stat"><span class="ic"><svg><use href="#i-sparkles"/></svg></span><small>Active pairs</small><b>12,482</b><span class="delta up">+11.2%</span></div>
+        <div class="card stat"><span class="ic"><svg><use href="#i-shield"/></svg></span><small>Flagged high risk</small><b id="hRisk">—</b><span class="delta muted">of tracked tokens</span></div>
+      </section>
+
+      <section class="split">
+        <div class="card pad">
+          <h2 class="card-title"><svg><use href="#i-trend-up"/></svg>Top movers (24h)<a class="sp" href="/?tab=gainers">View all <svg><use href="#i-arrow-right"/></svg></a></h2>
+          <table class="mini-table"><tbody id="hMovers"></tbody></table>
+        </div>
+        <div class="card pad">
+          <h2 class="card-title"><svg><use href="#i-sparkles"/></svg>Recent new pairs<a class="sp" href="/?tab=new">View all <svg><use href="#i-arrow-right"/></svg></a></h2>
+          <table class="mini-table"><tbody id="hPairs"></tbody></table>
+        </div>
+      </section>
+
+      <div class="page-head"><div><h1 style="font-size:20px">Everything you need to research</h1></div></div>
+      <section class="grid g3">
+        <a class="card tool-card" href="/"><span class="ic"><svg><use href="#i-bars"/></svg></span><h3>EYES-Screener</h3><p>Filter and sort every BNB Chain pair by liquidity, volume, market cap and AI signal.</p><span class="go">Open <svg><use href="#i-arrow-right"/></svg></span></a>
+        <a class="card tool-card" href="/ai-investigator"><span class="ic"><svg><use href="#i-brain"/></svg></span><h3>AI Investigator</h3><p>Paste a name or contract and get a plain-English safety report in seconds.</p><span class="go">Investigate <svg><use href="#i-arrow-right"/></svg></span></a>
+        <a class="card tool-card" href="/risk-radar"><span class="ic"><svg><use href="#i-radar"/></svg></span><h3>Risk Radar</h3><p>Spot honeypots, unlocked liquidity, high taxes and whale-heavy tokens at a glance.</p><span class="go">Scan <svg><use href="#i-arrow-right"/></svg></span></a>
+        <a class="card tool-card" href="/signal-alerts"><span class="ic"><svg><use href="#i-bell"/></svg></span><h3>Signal Alerts</h3><p>Set price, momentum and risk alerts and watch the live signal feed.</p><span class="go">Set alerts <svg><use href="#i-arrow-right"/></svg></span></a>
+        <a class="card tool-card" href="/watchlist"><span class="ic"><svg><use href="#i-star"/></svg></span><h3>Watchlist</h3><p>Keep the tokens you care about in one place with live price changes.</p><span class="go">Open <svg><use href="#i-arrow-right"/></svg></span></a>
+        <a class="card tool-card" href="/academy"><span class="ic"><svg><use href="#i-cap"/></svg></span><h3>Crypto Academy</h3><p>Short lessons on reading charts, avoiding rug pulls and using DeFi safely.</p><span class="go">Start learning <svg><use href="#i-arrow-right"/></svg></span></a>
+      </section>
+      <p class="disclaimer">Data on this site is for information only and is not financial advice. Always do your own research.</p>
+    </main>
