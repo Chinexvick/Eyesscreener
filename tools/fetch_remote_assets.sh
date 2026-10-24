@@ -1,9 +1,8 @@
 #!/bin/sh
-# Download banner art generated with Higgsfield into assets/img at build time.
+# Download banner and promo art generated with Higgsfield into assets/img at build time.
 # If a download fails or isn't a JPEG, the committed fallback image is kept and the build continues.
 # Run by Vercel via vercel.json; locally: sh tools/fetch_remote_assets.sh
-cd "$(dirname "$0")/.." || fetch "https://d2ol7oe51mr4n9.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/7cfc314e-08ec-41c9-898b-1c3c6c6b852a.jpg" assets/img/promo-owl.jpg
-exit 0
+cd "$(dirname "$0")/.." || exit 0
 
 fetch() { # url dest
   tmp="$(mktemp)"
@@ -14,6 +13,7 @@ fetch() { # url dest
   fi
 }
 
-fetch "https://d2ol7oe51mr4n9.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/7acc3e8a-7757-486b-b00b-4cee3fec3777.jpg" assets/img/hero-owl.jpg
-fetch "https://d2ol7oe51mr4n9.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi/7cfc314e-08ec-41c9-898b-1c3c6c6b852a.jpg" assets/img/promo-owl.jpg
+BASE="https://d2ol7oe51mr4n9.cloudfront.net/user_3KTmjXX4cAWH8jGzSaPzTrftLoi"
+fetch "$BASE/7acc3e8a-7757-486b-b00b-4cee3fec3777.jpg" assets/img/hero-owl.jpg
+fetch "$BASE/7cfc314e-08ec-41c9-898b-1c3c6c6b852a.jpg" assets/img/promo-owl.jpg
 exit 0
