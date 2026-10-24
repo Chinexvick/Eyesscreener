@@ -247,7 +247,7 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero::before { background: radial-gradient(60% 90% at 30% 0%, rgba(80, 140, 60, .18), transparent 70%); } }
 .hero-art { position: absolute; top: 0; right: 0; bottom: 0; width: 40%; max-width: 360px; }
 .hero-art img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 40% 35%;
+  width: 100%; height: 100%; object-fit: cover; object-position: 62% 30%;
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
   mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
 }
@@ -517,7 +517,7 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
   .hero { min-height: 0; display: flex; flex-direction: column; }
   .hero-art { position: relative; order: -1; width: 100%; max-width: none; height: 150px; }
   .hero-art img {
-    object-position: 50% 32%;
+    object-position: 64% 30%;
     -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
     mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
   }

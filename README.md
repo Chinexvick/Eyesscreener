@@ -33,6 +33,8 @@ js/data.js            demo market data (swap for a real feed with the same shape
 js/app.js             rendering + interactions
 assets/img/           images cropped from the mockup
 tools/extract_assets.py  regenerates assets/img from the mockup
+tools/fetch_token_logos.py  downloads real token logos
+tools/fetch_remote_assets.sh  build step: pulls the Higgsfield-generated banner art (see vercel.json)
 ```
 
 Market data is demo data. To go live, replace `EYES_DATA.tokens` in `js/data.js` with
