@@ -1,0 +1,65 @@
+name: eyes_screener
+description: "Eyes Screener: BNB Chain token screener with AI risk analysis, alerts and a crypto academy."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.2
+  shared_preferences: ^2.3.2
+  crypto: ^3.0.5
+  url_launcher: ^6.3.1
+  flutter_native_splash: ^2.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/img/
+    - assets/img/tokens/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+          weight: 800
+
+# App icon: the Eyes Screener owl logo on the brand background.
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#031B07"
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png"
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/icon/icon.png"
+    background_color: "#031B07"
+    theme_color: "#F6C01B"
+
+# Native splash shown before Flutter starts (the animated splash continues from it).
+flutter_native_splash:
+  color: "#070D09"
+  image: assets/icon/splash_logo.png
+  color_dark: "#070D09"
+  image_dark: assets/icon/splash_logo.png
+  android_12:
+    color: "#070D09"
+    image: assets/icon/splash_logo.png
+  web: false
